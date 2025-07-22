@@ -22,7 +22,8 @@ jobs:
         creds: >
           {
             "subscriptionId": "${{ secrets.AZURE_SUBSCRIPTION_ID }}",
-            "tenantId": "${{ secrets.AZURE_TENANT_ID }}"
+            "tenantId": "${{ secrets.AZURE_TENANT_ID }}",
+            "clientId": "${{secrets.CLIENT_ID}}"
           }
 
     - name: Terraform Init
