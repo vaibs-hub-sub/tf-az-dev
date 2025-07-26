@@ -13,7 +13,7 @@ resource "azurerm_virtual_network" "vnet" {
   name                = "v-vnet"
   address_space       = ["10.0.0.0/16"]
   location            = data.azurerm_resource_group.dev_rg.location
-  resource_group_name = variables.resource_group_name
+  resource_group_name = data.azurerm_resource_group.dev_rg.name
 }
  
 resource "azurerm_subnet" "subnet" {
@@ -243,21 +243,21 @@ resource "azurerm_virtual_machine" "example" {
 resource "azurerm_virtual_network" "vnetwin" {
   name                = "vnet-winserver"
   address_space       = ["10.0.0.0/16"]
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
+  location            = data.azurerm_resource_group.dev_rg.location
+  resource_group_name = data.azurerm_resource_group.dev_rg.name
 }
 
 resource "azurerm_subnet" "subnetwin" {
   name                 = "subnet-winserver"
-  resource_group_name  = azurerm_resource_group.rg.name
+  resource_group_name  = data.azurerm_resource_group.dev_rg.name
   virtual_network_name = azurerm_virtual_network.vnetwin.name
   address_prefixes     = ["10.0.1.0/24"]
 }
 
 resource "azurerm_network_interface" "nicwin" {
   name                = "nic-winserver"
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
+  location            = data.azurerm_resource_group.dev_rg.location
+  resource_group_name = data.azurerm_resource_group.dev_rg.name
 
   ip_configuration {
     name                          = "internal"
@@ -270,8 +270,8 @@ resource "azurerm_network_interface" "nicwin" {
 # 5. Public IP
 resource "azurerm_public_ip" "pip" {
   name                = "pip-winserver"
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
+  location            = data.azurerm_resource_group.dev_rg.location
+  resource_group_name = data.azurerm_resource_group.dev_rg.name
   allocation_method   = "Dynamic"
   sku                 = "Basic"
 }
@@ -279,8 +279,8 @@ resource "azurerm_public_ip" "pip" {
 # 6. Windows Virtual Machine
 resource "azurerm_windows_virtual_machine" "winvm" {
   name                = "win2022vm"
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
+  location            = data.azurerm_resource_group.dev_rg.location
+  resource_group_name = data.azurerm_resource_group.dev_rg.name
   size                = "Standard_DS2_v2"
   admin_username      = "azureadmin"
   admin_password      = "P@ssword1234!"  # Use secrets or key vault in production
