@@ -55,8 +55,8 @@ jobs:
         working-directory: task-tf
 
       - name: Terraform Apply
-        if: github.ref == 'refs/heads/main'
         run: terraform apply -auto-approve tfplan
+        working-directory: terraform
 
       - name: Terraform Output
         run: terraform output
