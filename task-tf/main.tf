@@ -223,7 +223,7 @@ resource "azurerm_network_interface" "nicwin" {
     name                          = "internal"
     subnet_id                    = azurerm_subnet.subnetwin.id
     private_ip_address_allocation = "Dynamic"
-    public_ip_address_id         = azurerm_public_ip.public_ip.ip_address
+    public_ip_address_id = azurerm_public_ip.public_ip.id
   }
 }
 
