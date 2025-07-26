@@ -223,17 +223,8 @@ resource "azurerm_network_interface" "nicwin" {
     name                          = "internal"
     subnet_id                    = azurerm_subnet.subnetwin.id
     private_ip_address_allocation = "Dynamic"
-    public_ip_address_id         = azurerm_public_ip.pip.id
+    public_ip_address_id         = azurerm_public_ip.public_ip.ip_address
   }
-}
-
-# 5. Public IP
-resource "azurerm_public_ip" "pip" {
-  name                = "pip-winserver"
-  location            = data.azurerm_resource_group.dev_rg.location
-  resource_group_name = data.azurerm_resource_group.dev_rg.name
-  allocation_method   = "Dynamic"
-  sku                 = "Basic"
 }
 
 # 6. Windows Virtual Machine
