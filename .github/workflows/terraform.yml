@@ -11,7 +11,6 @@ jobs:
     environment: vaibs
 
     steps:
-
       - name: Azure login
         uses: azure/login@v2
         with:
@@ -22,10 +21,10 @@ jobs:
 
       - name: Checkout code
         uses: actions/checkout@v3
-      
+
       - name: Install unzip
         run: sudo yum install -y unzip
-      
+
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
@@ -38,7 +37,6 @@ jobs:
           echo "ARM_TENANT_ID=${{ secrets.AZURE_TENANT_ID }}" >> $GITHUB_ENV
           echo "ARM_SUBSCRIPTION_ID=${{ secrets.AZURE_SUBSCRIPTION_ID }}" >> $GITHUB_ENV
 
-
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
         with:
@@ -46,15 +44,16 @@ jobs:
 
       - name: Terraform Init
         run: terraform init
-  
+        working-directory: task-tf
 
       - name: Terraform Validate
         run: terraform validate
-        
+        working-directory: task-tf
 
       - name: Terraform Plan
         run: terraform plan -out=tfplan
-        
+        working-directory: task-tf
 
       - name: Terraform Output
         run: terraform output
+        working-directory: task-tf
