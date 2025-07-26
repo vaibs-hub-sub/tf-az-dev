@@ -200,46 +200,6 @@ resource "azurerm_storage_container" "tfstate" {
   container_access_type = "private"
 }
 
-resource "azurerm_virtual_machine" "example" {
-  name                  = "New-v-vm"
-  resource_group_name   = "rg-cp-srivaibhavi-b"
-  location              = "eastus"   # or your actual region
-  network_interface_ids = ["/subscriptions/343c17eb-34b6-4481-92a2-a0a5a04bdd88/resourceGroups/rg-cp-srivaibhavi-b/providers/Microsoft.Network/networkInterfaces/New-v-vm",]
-  vm_size               = "Standard_D2s_v3"
-  delete_data_disks_on_termination = false
-  delete_os_disk_on_termination    = false
-  tags                  = {
-        "Owner" = "Srivaibhavi.B@kyndryl.com"
-    }
-  storage_os_disk {
-        caching                   = "ReadWrite"
-        create_option             = "FromImage"
-        disk_size_gb              = 64
-        image_uri                 = null
-        managed_disk_id           = "/subscriptions/343c17eb-34b6-4481-92a2-a0a5a04bdd88/resourceGroups/rg-cp-srivaibhavi-b/providers/Microsoft.Compute/disks/New-v-vm_OsDisk_1_2f4a5603691249b8829bbf859b0cbcd5"
-        managed_disk_type         = "Premium_LRS"
-        name                      = "New-v-vm_OsDisk_1_2f4a5603691249b8829bbf859b0cbcd5"
-        os_type                   = "Linux"
-        vhd_uri                   = null
-        write_accelerator_enabled = false
-    }
-  os_profile {
-    computer_name  = "New-v-vm"
-    admin_username = "azureadmin"
-    admin_password = "PassVM@7"
-  }
-  os_profile_linux_config {
-        disable_password_authentication = false
-    }
-  storage_image_reference {
-        id        = null
-        offer     = "RHEL"
-        publisher = "RedHat"
-        sku       = "8-lvm-gen2"
-        version   = "latest"
-    }
-}
-
 resource "azurerm_virtual_network" "vnetwin" {
   name                = "vnet-winserver"
   address_space       = ["10.0.0.0/16"]
