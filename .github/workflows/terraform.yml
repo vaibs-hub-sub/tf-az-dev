@@ -1,41 +1,24 @@
-name: Terraform Pipeline
+name: Terraform Deploy Logic App
 
 on:
   push:
     branches: [main]
-  pull_request:
 
 jobs:
   terraform:
-    runs-on: self-hosted
-    environment: vaibs
+    runs-on: ubuntu-latest
+    environment: production
 
     steps:
-      - name: Azure login
-        uses: azure/login@v2
-        with:
-          auth-type: IDENTITY
-          client-id: ${{ secrets.CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-
-      - name: Checkout code
+      - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Install unzip
-        run: sudo yum install -y unzip
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - name: Azure Login
+        uses: azure/login@v2
         with:
-          node-version: 18
-
-      - name: Set Terraform env vars for Managed Identity
-        run: |
-          echo "ARM_USE_MSI=true" >> $GITHUB_ENV
-          echo "ARM_CLIENT_ID=${{ secrets.CLIENT_ID }}" >> $GITHUB_ENV
-          echo "ARM_TENANT_ID=${{ secrets.AZURE_TENANT_ID }}" >> $GITHUB_ENV
-          echo "ARM_SUBSCRIPTION_ID=${{ secrets.AZURE_SUBSCRIPTION_ID }}" >> $GITHUB_ENV
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
@@ -44,20 +27,9 @@ jobs:
 
       - name: Terraform Init
         run: terraform init
-        working-directory: task-tf
-
-      - name: Terraform Validate
-        run: terraform validate
-        working-directory: task-tf
 
       - name: Terraform Plan
         run: terraform plan -out=tfplan
-        working-directory: task-tf
 
       - name: Terraform Apply
         run: terraform apply -auto-approve tfplan
-        working-directory: task-tf
-
-      - name: Terraform Output
-        run: terraform output
-        working-directory: task-tf
