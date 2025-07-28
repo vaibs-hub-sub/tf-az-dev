@@ -1,0 +1,7 @@
+admin_ssh_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDTw1K98+HX9I9CLDOHflxfMCMhKPD/LtKS/kmvHbIsfP11efVBdesegV8CwYTMwjeTvu3ybM/mEer3TyUYwt1zMdT+PNHlh7I0Zj4R6RAi2oMrnr7BE71sp697B+uHSs4eMcJ5v0cErn8Rc/zw23XucZ+hQRcYlWFT9HTgI0GvvX5wDMePyqlC8YBctPxxPbsGskDEKN1FitT4PxGUs3W60uQYQPVjGS7/8ylidak8cH7XUNVWMugWei8BKL3LOiBKINAvNZTcgeiuHZR458FK7CX8Ive67aNd1f0OQaUOjqYxieJgki78gbHhBlpswRaP8b8M9l1Q61LATj5jA1Jt srivaibhavi.b@kyndryl.com"
+
+admin_username = "adminuser"
+
+resource_group_name = "rg-cp-srivaibhavi-b"
+
+vm_name = "ws-vm"
