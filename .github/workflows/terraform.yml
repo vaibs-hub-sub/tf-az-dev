@@ -49,7 +49,7 @@ jobs:
         run: terraform validate
 
       - name: Terraform Plan
-        run: terraform plan -out=tfplan -var-file=terraform.tfvars
+        run: terraform plan -lock-timeout=5m -out=tfplan -var-file=terraform.tfvars
 
       - name: Terraform Apply
         run: terraform apply -auto-approve tfplan
