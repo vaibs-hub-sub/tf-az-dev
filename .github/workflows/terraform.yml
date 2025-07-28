@@ -44,20 +44,15 @@ jobs:
 
       - name: Terraform Init
         run: terraform init
-        working-directory: task-tf
 
       - name: Terraform Validate
         run: terraform validate
-        working-directory: task-tf
 
       - name: Terraform Plan
         run: terraform plan -out=tfplan
-        working-directory: task-tf
 
       - name: Terraform Apply
         run: terraform apply -auto-approve tfplan
-        working-directory: task-tf
 
       - name: Terraform Output
         run: terraform output
-        working-directory: task-tf
