@@ -222,7 +222,7 @@ resource "azurerm_service_plan" "asp" {
 }
 
 resource "azurerm_logic_app_standard" "logicapp" {
-  name                       = "logicapp-standard"
+  name                       = "vaibs-logicapp-standard"
   location                   = data.azurerm_resource_group.dev_rg.location
   resource_group_name        = data.azurerm_resource_group.dev_rg.name
   app_service_plan_id        = azurerm_service_plan.asp.id
